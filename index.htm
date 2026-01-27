@@ -55,7 +55,10 @@
   </section>
 
   <footer>
-    © 2026 Me
-  </footer>
-</body>
-</html>
+  © <span id="year"></span> | XΞN
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
