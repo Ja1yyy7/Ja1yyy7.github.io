@@ -32,3 +32,13 @@ button {
 button:hover {
   background: #0ea5e9;
 }
+
+
+.card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+}
