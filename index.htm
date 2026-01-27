@@ -155,4 +155,62 @@ fetch('status.json')
       .catch(err => console.log("Status file not found:", err));
   </script>
 </body>
+
+
+
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>XΞN Site</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>XΞN</h1>
+    <p>Minimal • Clean • Modern</p>
+  </header>
+
+  <section class="about">
+    <h2>About</h2>
+    <p>Welcome to the XΞN website. Toggle the theme or check back later if the site is paused.</p>
+  </section>
+
+  <button class="theme-toggle" id="themeToggle">Toggle Theme</button>
+
+  <footer>
+    © <span id="year"></span> | XΞN
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Auto current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Theme toggle
+    const toggle = document.getElementById('themeToggle');
+    const body = document.body;
+
+    if(localStorage.getItem('theme') === 'dark') {
+      body.classList.add('dark-theme');
+    }
+
+    toggle.addEventListener('click', () => {
+      body.classList.toggle('dark-theme');
+      localStorage.setItem('theme', body.classList.contains('dark-theme') ? 'dark' : 'light');
+    });
+
+    // Kill switch using statusi.json
+    fetch('./statusi.json')
+      .then(res => {
+        if(!res.ok) throw new Error('Status file not found');
+        return res.json();
+      })
+      .then(data => {
+        if(!data.active){
+          const overlay = document.createElement('div');
+          overlay.style.position = 'fixed';
+          overla
+
 </html>
