@@ -77,3 +77,82 @@ fetch('status.json')
   })
   .catch(err => console.log("Status file not found:", err));
 </script>
+
+
+
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>XΞN Site</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>XΞN</h1>
+    <p>Minimal • Clean • Modern</p>
+  </header>
+
+  <section class="about">
+    <h2>About</h2>
+    <p>Welcome to the XΞN website. Toggle the theme or check back later if the site is paused.</p>
+  </section>
+
+  <button class="theme-toggle" id="themeToggle">Toggle Theme</button>
+
+  <footer>
+    © <span id="year"></span> | XΞN
+  </footer>
+
+  <script>
+    // Auto current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Theme toggle
+    const toggle = document.getElementById('themeToggle');
+    const body = document.body;
+
+    if(localStorage.getItem('theme') === 'dark') {
+      body.classList.add('dark-theme');
+    }
+
+    toggle.addEventListener('click', () => {
+      body.classList.toggle('dark-theme');
+      localStorage.setItem('theme', body.classList.contains('dark-theme') ? 'dark' : 'light');
+    });
+
+    // Kill switch overlay
+    fetch('status.json')
+      .then(res => res.json())
+      .then(data => {
+        if(!data.active){
+          const overlay = document.createElement('div');
+          overlay.style.position = 'fixed';
+          overlay.style.top = '0';
+          overlay.style.left = '0';
+          overlay.style.width = '100%';
+          overlay.style.height = '100%';
+          overlay.style.backgroundColor = 'rgba(255,0,0,0.85)';
+          overlay.style.color = '#fff';
+          overlay.style.display = 'flex';
+          overlay.style.flexDirection = 'column';
+          overlay.style.alignItems = 'center';
+          overlay.style.justifyContent = 'center';
+          overlay.style.fontFamily = "'Inter', sans-serif";
+          overlay.style.textAlign = 'center';
+          overlay.style.fontSize = '2rem';
+          overlay.style.opacity = '0';
+          overlay.style.transition = 'opacity 1s ease';
+          overlay.innerHTML = `
+            <h1>❌ XΞN has paused the site ❌</h1>
+            <p style="font-size:1.2rem; margin-top:1rem;">Check back later.</p>
+          `;
+          document.body.appendChild(overlay);
+          setTimeout(() => { overlay.style.opacity = '1'; }, 50);
+        }
+      })
+      .catch(err => console.log("Status file not found:", err));
+  </script>
+</body>
+</html>
