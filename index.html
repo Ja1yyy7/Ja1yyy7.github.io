@@ -2,215 +2,209 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>My Website</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kubus</title>
 
-  <header>
-    <h1>🚀 just a testing website for upcoming projects </h1>
-    <p>Hosted for free on GitHub Pages</p>
-  </header>
-
-  <main>
-    <section class="card">
-      <h2>About</h2>
-      <p>This is my site. I can change how it looks.</p>
-      <button onclick="changeTheme()">Change theme</button>
-    </section>
-  </main>
-
- <footer>
-  © <span id="year"></span> | XΞN
-</footer>
-
-<script>
-  document.getElementById('year').textContent = new Date().getFullYear();
-</script>
-
-
-  <script src="script.js"></script>
-</body>
-</html>
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>My Clean Site</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <header>
-    <h1>My Website</h1>
-    <p>Simple • Clean • Modern</p>
-  </header>
-
-  <section class="about">
-    <h2>About Me</h2>
-    <p>This is my site — now cleaner and professional looking.</p>
-  </section>
-
-  <footer>
-  © <span id="year"></span> | XΞN
-</footer>
-
-<script>
-  document.getElementById('year').textContent = new Date().getFullYear();
-</script>
-
-<script>
-fetch('status.json')
-  .then(res => res.json())
-  .then(data => {
-    if(!data.active){
-      // Hide the entire site content
-      document.body.innerHTML = `
-        <div style="text-align:center; margin-top:50px; font-family: 'Inter', sans-serif;">
-          <h1>❌ Site is offline ❌</h1>
-          <p>Check back later.</p>
-        </div>`;
+  <style>
+    :root {
+      --bg: #0d0d0f;
+      --card: #151518;
+      --text: #eaeaea;
+      --muted: #9a9a9a;
+      --accent: #7c7cff;
     }
-  })
-  .catch(err => console.log("Status file not found:", err));
-</script>
 
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
 
+    body {
+      background: radial-gradient(circle at top, #1a1a2e, var(--bg));
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-  <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>XΞN Site</title>
-  <link rel="stylesheet" href="style.css">
+    .container {
+      width: 90%;
+      max-width: 900px;
+      animation: fadeUp 1s ease forwards;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 3rem;
+      letter-spacing: -1px;
+      margin-bottom: 0.5rem;
+    }
+
+    p.subtitle {
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .tab {
+      padding: 0.6rem 1.2rem;
+      background: var(--card);
+      border-radius: 999px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      font-size: 0.9rem;
+    }
+
+    .tab:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .tab.active {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .content {
+      background: var(--card);
+      padding: 2rem;
+      border-radius: 1.2rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      animation: fadeUp 0.8s ease forwards;
+      width: 100%;
+    }
+
+    .section {
+      display: none;
+      animation: fadeUp 0.6s ease forwards;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .socials {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social {
+      padding: 1rem;
+      background: #1b1b20;
+      border-radius: 1rem;
+      text-decoration: none;
+      color: var(--text);
+      transition: 0.3s ease;
+      border: 1px solid transparent;
+    }
+
+    .social:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: 0 10px 25px rgba(124,124,255,0.2);
+    }
+
+    .social span {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .footer {
+      margin-top: 2rem;
+      font-size: 0.75rem;
+      color: #777;
+      opacity: 0.7;
+      letter-spacing: 0.15em;
+      text-align: center;
+      animation: fadeUp 1.2s ease forwards;
+    }
+
+    .footer span {
+      color: var(--accent);
+      text-shadow:
+        0 0 5px rgba(124,124,255,0.7),
+        0 0 10px rgba(124,124,255,0.5),
+        0 0 20px rgba(124,124,255,0.3);
+      font-weight: bold;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <header>
-    <h1>XΞN</h1>
-    <p>Minimal • Clean • Modern</p>
-  </header>
+  <div class="container">
+    <h1>Kubus</h1>
+    <p class="subtitle">Developer • Creator • Internet Gremlin</p>
 
-  <section class="about">
-    <h2>About</h2>
-    <p>Welcome to the XΞN website. Toggle the theme or check back later if the site is paused.</p>
-  </section>
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab('about')">What I Do</div>
+      <div class="tab" onclick="switchTab('socials')">Socials</div>
+    </div>
 
-  <button class="theme-toggle" id="themeToggle">Toggle Theme</button>
+    <div class="content">
+      <div id="about" class="section active">
+        <p>
+          I build things for the web, mess with code, and create stuff that looks clean and feels smooth.
+          Minimal design, good animations, and zero unnecessary bullshit.
+        </p>
+      </div>
 
-  <footer>
-    © <span id="year"></span> | XΞN
-  </footer>
+      <div id="socials" class="section">
+        <div class="socials">
+          <a class="social" href="https://instagram.com/_77kubus" target="_blank">
+            Instagram<br><span>@_77kubus</span>
+          </a>
+
+          <a class="social" href="https://tiktok.com/@hmmxen" target="_blank">
+            TikTok<br><span>@hmmxen</span>
+          </a>
+
+          <a class="social" href="https://github.com/Ja1yyy7" target="_blank">
+            GitHub<br><span>@Ja1yyy7</span>
+          </a>
+
+          <a class="social" href="#" title="Username unknown">
+            X (Twitter)<br><span>coming soon</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      © 2026 <span>XΞN</span> — All rights reserved
+    </footer>
+  </div>
 
   <script>
-    // Auto current year
-    document.getElementById('year').textContent = new Date().getFullYear();
+    function switchTab(tab) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
 
-    // Theme toggle
-    const toggle = document.getElementById('themeToggle');
-    const body = document.body;
-
-    if(localStorage.getItem('theme') === 'dark') {
-      body.classList.add('dark-theme');
+      document.querySelector(`.tab[onclick="switchTab('${tab}')"]`).classList.add('active');
+      document.getElementById(tab).classList.add('active');
     }
-
-    toggle.addEventListener('click', () => {
-      body.classList.toggle('dark-theme');
-      localStorage.setItem('theme', body.classList.contains('dark-theme') ? 'dark' : 'light');
-    });
-
-    // Kill switch overlay
-    fetch('status.json')
-      .then(res => res.json())
-      .then(data => {
-        if(!data.active){
-          const overlay = document.createElement('div');
-          overlay.style.position = 'fixed';
-          overlay.style.top = '0';
-          overlay.style.left = '0';
-          overlay.style.width = '100%';
-          overlay.style.height = '100%';
-          overlay.style.backgroundColor = 'rgba(255,0,0,0.85)';
-          overlay.style.color = '#fff';
-          overlay.style.display = 'flex';
-          overlay.style.flexDirection = 'column';
-          overlay.style.alignItems = 'center';
-          overlay.style.justifyContent = 'center';
-          overlay.style.fontFamily = "'Inter', sans-serif";
-          overlay.style.textAlign = 'center';
-          overlay.style.fontSize = '2rem';
-          overlay.style.opacity = '0';
-          overlay.style.transition = 'opacity 1s ease';
-          overlay.innerHTML = `
-            <h1>❌ XΞN has paused the site ❌</h1>
-            <p style="font-size:1.2rem; margin-top:1rem;">Check back later.</p>
-          `;
-          document.body.appendChild(overlay);
-          setTimeout(() => { overlay.style.opacity = '1'; }, 50);
-        }
-      })
-      .catch(err => console.log("Status file not found:", err));
   </script>
 </body>
-
-
-
-  <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>XΞN Site</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <header>
-    <h1>XΞN</h1>
-    <p>Minimal • Clean • Modern</p>
-  </header>
-
-  <section class="about">
-    <h2>About</h2>
-    <p>Welcome to the XΞN website. Toggle the theme or check back later if the site is paused.</p>
-  </section>
-
-  <button class="theme-toggle" id="themeToggle">Toggle Theme</button>
-
-  <footer>
-    © <span id="year"></span> | XΞN
-  </footer>
-
-  <!-- Scripts -->
-  <script>
-    // Auto current year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Theme toggle
-    const toggle = document.getElementById('themeToggle');
-    const body = document.body;
-
-    if(localStorage.getItem('theme') === 'dark') {
-      body.classList.add('dark-theme');
-    }
-
-    toggle.addEventListener('click', () => {
-      body.classList.toggle('dark-theme');
-      localStorage.setItem('theme', body.classList.contains('dark-theme') ? 'dark' : 'light');
-    });
-
-    // Kill switch using statusi.json
-    fetch('./statusi.json')
-      .then(res => {
-        if(!res.ok) throw new Error('Status file not found');
-        return res.json();
-      })
-      .then(data => {
-        if(!data.active){
-          const overlay = document.createElement('div');
-          overlay.style.position = 'fixed';
-          overla
-
 </html>
